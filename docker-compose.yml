@@ -20,13 +20,13 @@ services:
       - db  # Ensure backend starts after db service
 
   db:
-    image: postgres:latest
+    image: postgres:latest  # Use the latest PostgreSQL Docker image
     environment:
-      POSTGRES_USER: your_username
-      POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database
+      POSTGRES_USER: tosingh54  # PostgreSQL username
+      POSTGRES_PASSWORD: peranofo_54  # PostgreSQL password
+      POSTGRES_DB: HngDevopsDb  # PostgreSQL database name
     ports:
-      - "5432:5432"  # Expose PostgreSQL port to host
+      - "5432:5432"  # Expose PostgreSQL port to the host
     networks:
       - app-network  # Connect to the app-network
     volumes:
