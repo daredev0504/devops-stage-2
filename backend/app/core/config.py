@@ -46,7 +46,7 @@ class Settings(BaseSettings):
         list[AnyUrl] | str, BeforeValidator(parse_cors)
     ] = []
 
-   PROJECT_NAME: str = "Full Stack FastAPI Project"
+    PROJECT_NAME: str = "Full Stack FastAPI Project"
     SENTRY_DSN: HttpUrl | None = None
     POSTGRES_SERVER: str = "db"
     POSTGRES_PORT: int = 5432
