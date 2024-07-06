@@ -5,4 +5,8 @@ import { defineConfig } from "vite"
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), TanStackRouterVite()],
+  server: {
+    host: true, // Expose the server on the network
+    port: 5173, // Specify the port
+  },
 })
