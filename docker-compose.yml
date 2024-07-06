@@ -38,7 +38,7 @@ services:
   proxy-manager:
     image: jc21/nginx-proxy-manager:latest
     ports:
-      - "80:80"  # HTTP
+      - "8081:80"  # HTTP
       - "81:81"  # Admin interface
       - "443:443"  # HTTPS
       - "8090:8090"  # Custom port for access
