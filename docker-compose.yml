@@ -1,52 +1,50 @@
-version: '3.8'
+version: '3.7'
 
 services:
   frontend:
     build:
       context: ./frontend  # Path to your React frontend Dockerfile
-    ports:
-      - "80:80"  # Expose port 80 of frontend service to host
     networks:
       - app-network  # Connect to the app-network
 
   backend:
     build:
       context: ./backend  # Path to your FastAPI backend Dockerfile
-    ports:
-      - "8000:8000"  # Expose port 8000 of backend service to host
     networks:
       - app-network  # Connect to the app-network
     depends_on:
       - db  # Ensure backend starts after db service
 
   db:
-    image: postgres:latest  # Use the latest PostgreSQL Docker image
+    image: postgres:latest
     environment:
       POSTGRES_USER: tosingh54  # PostgreSQL username
       POSTGRES_PASSWORD: peranofo_54  # PostgreSQL password
       POSTGRES_DB: HngDevopsDb  # PostgreSQL database name
-    ports:
-      - "5432:5432"  # Expose PostgreSQL port to the host
     networks:
-      - app-network  # Connect to the app-network
+      - app-network
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persist PostgreSQL data
+      - postgres_data:/var/lib/postgresql/data
 
   adminer:
     image: adminer:latest
     ports:
       - "8080:8080"  # Expose Adminer port to host
     networks:
-      - app-network  # Connect to the app-network
+      - app-network
 
-  proxy:
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Mount your nginx.conf
+  proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
     ports:
-      - "80:80"  # Expose port 80 of Nginx to host
+      - "80:80"  # HTTP
+      - "81:81"  # Admin interface
+      - "443:443"  # HTTPS
+      - "8090:8090"  # Custom port for access
     networks:
-      - app-network  # Connect to the app-network
+      - app-network
+    volumes:
+      - data:/data
+      - letsencrypt:/etc/letsencrypt
 
 networks:
   app-network:
@@ -54,4 +52,5 @@ networks:
 
 volumes:
   postgres_data:
-    driver: local
+  data:
+  letsencrypt:
