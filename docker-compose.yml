@@ -6,6 +6,8 @@ services:
       context: ./frontend  # Path to your React frontend Dockerfile
     networks:
       - app-network  # Connect to the app-network
+    environment:
+      - VITE_API_URL=http://backend:8000  # Point to backend service
 
   backend:
     build:
