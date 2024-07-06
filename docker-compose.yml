@@ -45,6 +45,8 @@ services:
     volumes:
       - data:/data
       - letsencrypt:/etc/letsencrypt
+    environment:
+      DEFAULT_HOST: tosinghdevs.pakasak.com
 
 networks:
   app-network:
