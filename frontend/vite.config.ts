@@ -6,7 +6,7 @@ import { defineConfig } from "vite"
 export default defineConfig({
   plugins: [react(), TanStackRouterVite()],
   server: {
-    host: true, // Expose the server on the network
+    host: '0.0.0.0', // Listen on all network interfaces
     port: 5173, // Specify the port
   },
 })
