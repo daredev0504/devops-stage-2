@@ -26,11 +26,11 @@ target_metadata = SQLModel.metadata
 load_dotenv()
 
 def get_url():
-    user = os.getenv("POSTGRES_USER", "postgres")
-    password = os.getenv("POSTGRES_PASSWORD", "")
+    user = os.getenv("POSTGRES_USER", "tosingh54")
+    password = os.getenv("POSTGRES_PASSWORD", "peranofo_54")
     server = os.getenv("POSTGRES_SERVER", "db")
     port = os.getenv("POSTGRES_PORT", "5432")
-    db = os.getenv("POSTGRES_DB", "app")
+    db = os.getenv("POSTGRES_DB", "HngDevopsDbp")
 
     return f"postgresql+psycopg://{user}:{password}@{server}:{port}/{db}"
 
