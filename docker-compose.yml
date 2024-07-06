@@ -7,7 +7,7 @@ services:
     networks:
       - app-network  # Connect to the app-network
     environment:
-      - VITE_API_URL=http://127.0.0.1:8000  # Point to backend service
+      - VITE_API_URL=http://backend:8000  # Point to backend service
 
   backend:
     build:
