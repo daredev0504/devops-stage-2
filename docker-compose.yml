@@ -1,0 +1,69 @@
+version: '3.7'
+
+services:
+  traefik:
+    image: traefik:v2.3
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8090:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - web
+
+  frontend:
+    build:
+      context: ./frontend
+    labels:
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+    networks:
+      - web
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/dbname
+    labels:
+      - "traefik.http.routers.backend.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.entrypoints=web"
+    networks:
+      - web
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbname
+    networks:
+      - db
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    labels:
+      - "traefik.http.routers.adminer.rule=Host(`db.domain`)"
+    networks:
+      - db
+
+  proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    ports:
+      - "8090:81"
+    labels:
+      - "traefik.http.routers.proxy.rule=Host(`proxy.domain`)"
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
+  db:
