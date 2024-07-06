@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     # 60 minutes * 24 hours * 8 days = 8 days
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
     DOMAIN: str = "localhost"
-    ENVIRONMENT: Literal["local", "staging", "production"] = "local"
+    ENVIRONMENT: Literal["local", "staging", "production"] = "production"
 
     @computed_field  # type: ignore[misc]
     @property
@@ -46,13 +46,13 @@ class Settings(BaseSettings):
         list[AnyUrl] | str, BeforeValidator(parse_cors)
     ] = []
 
-    PROJECT_NAME: str
+   PROJECT_NAME: str = "Full Stack FastAPI Project"
     SENTRY_DSN: HttpUrl | None = None
-    POSTGRES_SERVER: str
+    POSTGRES_SERVER: str = "db"
     POSTGRES_PORT: int = 5432
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    POSTGRES_DB: str = ""
+    POSTGRES_USER: str = "tosingh54"
+    POSTGRES_PASSWORD: str = "peranofo_54"
+    POSTGRES_DB: str = "HngDevopsDb"
 
     @computed_field  # type: ignore[misc]
     @property

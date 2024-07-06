@@ -1,11 +1,13 @@
-FROM python:3.10
-WORKDIR /var/www/app
-COPY pyproject.toml poetry.lock ./
-RUN pip install poetry && \
-   poetry config virtualenvs.create false && \
-   poetry install --no-dev
-COPY . .
-ENV PYTHONPATH "${PYTHONPATH}:/var/www/app"
-RUN poetry run bash ./prestart.sh
+FROM python:3.10-slim
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+RUN apt-get update && apt-get install -y \
+   libpq-dev
+WORKDIR /app
+RUN pip install poetry
+COPY pyproject.toml poetry.lock /app/
+RUN poetry config virtualenvs.create false \
+&& poetry install --no-dev --no-interaction --no-ansi
+COPY . /app/
 EXPOSE 8000
-CMD [ "poetry", "run", "uvicorn", "app.main:app", "--reload" ]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
