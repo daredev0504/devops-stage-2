@@ -4,8 +4,6 @@ services:
   frontend:
     build:
       context: ./frontend  # Path to your React frontend Dockerfile
-    ports:
-      - "5173:5173"  # Expose port 5173 of frontend service to host
     networks:
       - app-network  # Connect to the app-network
     environment:
@@ -14,8 +12,6 @@ services:
   backend:
     build:
       context: ./backend  # Path to your FastAPI backend Dockerfile
-    ports:
-      - "8000:8000"  # Expose port 8000 of backend service to host
     networks:
       - app-network  # Connect to the app-network
     depends_on:
