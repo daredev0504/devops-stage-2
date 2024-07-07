@@ -18,6 +18,8 @@ services:
       - "8000:8000"  # Expose port 8000 of backend service to host
     networks:
       - app-network  # Connect to the app-network
+    environment:
+      - DOMAIN=tosinghdevs.pakasak.com  # Point to your domain
     depends_on:
       - db  # Ensure backend starts after db service
 
