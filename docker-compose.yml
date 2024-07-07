@@ -9,7 +9,7 @@ services:
     networks:
       - app-network  # Connect to the app-network
     environment:
-      - VITE_API_URL=tosinghdevs.pakasak.com # Point to backend service
+      - VITE_API_URL=https://tosinghdevs.pakasak.com # Point to backend service
 
   backend:
     build:
