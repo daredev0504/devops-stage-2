@@ -9,7 +9,7 @@ services:
     networks:
       - app-network  # Connect to the app-network
     environment:
-      - VITE_API_URL=https://tosinghdevs.pakasak.com # Point to backend service
+      - VITE_API_URL=http://localhost:8000 # Point to backend service
 
   backend:
     build:
@@ -52,7 +52,7 @@ services:
       - data:/data
       - letsencrypt:/etc/letsencrypt
     environment:
-      DEFAULT_HOST: tosinghdevs.pakasak.com
+      DEFAULT_HOST: localhost
 
 networks:
   app-network:
